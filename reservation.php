@@ -1,53 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register</title>
-        <link rel="stylesheet" href="registerstyle.css">
+        <title>Reservation</title>
+        <link rel="stylesheet" href="contactstyle.css">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
     <?php include('includes/header.php'); ?>
     <body>
         <div class="banner">
         <?php include('includes/menubar.php'); ?>
-            <div class="maintitle">
-                <h1>Tony's Pizzeria</h1>
-                <p>Welcome to the official Tony's website! <br> All ingredients are expertly hand selected and prepared to absolute perfection for you to enjoy!</p>
-            </div>
         </div>
-
-        <div class="inner-container">
-            <h1>
-                Register
-            </h1>
-            <hr/>
-            <form action="register_script.php" method="POST">
-                <div class="formcontainer">
-                    <label for="email" name="email"><strong>Email</strong></label>
-                    <input type="text" placeholder="Enter Your Email" name="email" required>
-                    <label for="username" name="username"><strong>Username</strong></label>
-                    <input type="text" placeholder="Enter Username" name="username" required>
-                    <label for="password" name="password"><strong>Password</strong></label>
-                    <input type="text" placeholder="Enter Password" name="password" required>
-                </div>
-                <div class="formbutton">
-                    <button type="submit" value="submit">Register</button>
-                </div>
-                <div class="lowform">
-                    <label style="padding-left: 15px">
-                        <input type="checkbox" checked="checked" name="remember"> Remember Me
-                    </label>
-
-                </div>
+        <div class="containerform">
+            <form onsubmit="sendEmail(); reset(); return false;">
+                <h3>CREATE RESERVATION</h3>
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="text" id="phone" placeholder="Phone Number" required>
+                <input type="text" id="size" placeholder="Party Size" required>
+                <input type="text" id="time" placeholder="Reservation Time" required>
+                <textarea id="message" rows="4" placeholder="How can we help you?"></textarea>
+                <button type="submit">Send</button>
             </form>
-            <p><br></p>
-            <hr/>
-            <div class="skills">
-                <span>Authentic</span>
-                <span>Italian</span>
-                <span>Perfection</span>
-            </div>   
         </div>
-
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script>
+            function sendEmail() {
+                Email.send({
+                    Host : "smtp.gmail.com",
+                    Username : "username",
+                    Password : "password",
+                    To : 'username',
+                    From : document.getElementbById("email").value,
+                    Subject : "New Contact Form Inquiry",
+                    Body : "Name: " + document.getElementById("name").value + "<br> Email: " + document.getElementById("email").value + "<br> Phone: " + document.getElementById("phone").value + "<br> Size: " + document.getElementById("size").value + "<br> Time: " + document.getElementById("time").value + "<br> Message: " + document.getElementById("message").value
+                }).then(
+                message => alert("Message Sent Successfully")
+                );
+            }
+        </script>
         <footer class="footer">
             <div class="container">
                 <div class="row">
